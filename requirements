@@ -1,0 +1,6 @@
+torch
+torchvision
+matplotlib
+PIL
+transformers
+sentencepiece
