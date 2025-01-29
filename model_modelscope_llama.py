@@ -138,30 +138,3 @@ class EarthGPTUnified(EarthGPT):
                 self.replace_linear_layers(sub_module)
         return module
 
-
-# 测试函数
-def prepare_dummy_data(batch_size=2, image_size=(224, 224)):
-    dummy_images = torch.rand(batch_size, 3, *image_size)
-    dummy_lang_instr = ["Describe the scene."] * batch_size
-    return dummy_images, dummy_lang_instr
-
-
-def test_earthgpt_with_local_llama():
-    # llm_local_path = "./2/Llama-2-7b"  # 替换为本地模型的路径
-    llm_local_path = "./Llama-3.2-1B-Instruct"
-    visual_proj_dim = 1024
-    model = EarthGPT(visual_proj_dim, llm_local_path)
-    dummy_images, dummy_lang_instr = prepare_dummy_data()
-    vit_features = torch.rand(2, visual_proj_dim)
-    try:
-        loss = model(vit_features, dummy_lang_instr)
-        print("Loss:", loss.item())
-        assert loss.item() > 0, "Loss should be greater than 0!"
-        print("EarthGPT with local LLaMA test passed!")
-    except Exception as e:
-        print("EarthGPT with local LLaMA test failed:", e)
-
-
-if __name__ == "__main__":
-    test_earthgpt_with_local_llama()
-
